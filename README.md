@@ -1,2 +1,1 @@
-# python
-python日常
+python趣味百题自练习代码
