@@ -1,0 +1,75 @@
+2019.3.12
+^不出现在中括号里面，则表示匹配开始字符
+^出现在中括号里面，则表示匹配除中括号中出现的所有字符
+
+堆排序本质是完全二叉树，最小元素位于根部
+
+排序算法中，初始数据集的排列顺序对算法性能无影响的是堆排序
+
+正则表达式的特殊字符 匹配字母，数字，字符串的是\ w
+
+正则非贪婪模式使用 \? 设置
+
+python中的heapq 是一种 树型数据结构
+heapq是python自带的完全二叉树的类型
+
+python中的list可以看成是一种stack()，栈
+
+tuple.append()之后，print会抛出异常(An exception is thrown)
+因为元组不可修改，可以看做是只读的list
+
+type(lambda:None)
+python2的运行结果是<type 'function'>
+python3的运行结果是<class 'function'>
+
+x or y and z   先计算and再计算or
+
+对象中的__dict__除了能返回一个字典，key为对象的属性，value为属性的值，还可以对对象新增属性。
+对象的__dict__可以存储全局变量，静态函数，类函数和内置的属性等等，所以包含id
+
+def temp(a,*b)
+python在函数定义*b时前边*号，表示这是一个不定长定位参数，会将后边的不定长个定位参数打包为一个tuple（元组）
+
+BIFs中的getattr和setattr：
+setattr可以对一个对象动态添加属性，而getattr负责读取某类的指定属性的值
+
+isinstance()是判断某对象是否属于某类的函数，返回值是True或False。
+例如：isinstance(1,int)
+
+python深度拷贝和浅拷贝：
+分为三种：
+１．直接赋值,默认浅拷贝传递对象的引用而已,原始列表改变，被赋值的b也会做相同的改变
+２．浅拷贝，ｃｏｐｙ,没有拷贝子对象，所以原始数据改变，子对象会改变
+3.深拷贝，包含对象里面的自对象的拷贝，所以原始对象的改变不会造成深拷贝里任何子元素的改变     copy模块里面的deepcopy方法实现深拷贝
+
+首先，我们知道Python3中，有6个标准的数据类型，他们又分为可变和不可变。
+
+不可变数据（3个）：
+
+Number（数字）
+String（字符串）
+Tuple（元组）
+可变数据（3个）：
+
+List（列表）
+Dictionary（字典）
+Set（集合）
+
+def foo():
+     "This is a cool simple function that return 1"
+     return 1
+foo.__doc__[-8:-2]
+执行结果为：'return'
+解析：与类的内置属性有关。__doc__是Python中类的魔法属性，通常为在类及函数定义时的第一行字符串，作为文档供使用者使用.__doc__进行调用，返回值是字符串类型
+
+python类的常见内置属性：
+__dict__：          实例自定义属性
+__doc__：          类文档,子类不继承
+__class__：     　实例所在的类       　
+__hash__：
+__init__：          　构造初始化函数，在__new__后
+__new__：          创建实例时，生成实例所需属性　
+__setattr__（s,name,value）：　　调用时，设置name属性
+__getattribute__:    属性访问拦截器
+__str__：          　实例字符串表示,可读性
+__del__:         　 析构函数
