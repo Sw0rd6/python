@@ -7,4 +7,4 @@ def bubble_sort():
 		for j in range(1, n - i):	#n - i是冒泡的精髓
     		if ls[j - 1] > ls[j]:
         		ls[j - 1], ls[j] = ls[j], ls[j - 1]
-return ls
+	return ls
