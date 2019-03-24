@@ -8,6 +8,6 @@ def select_sort():
 		for j in range(i + 1, n):
 			if ls[j] < ls[min]:
 				min = j
-			ls[i], ls[min] = ls[min], ls[i]
+		ls[i], ls[min] = ls[min], ls[i]
 	return ls
 				
