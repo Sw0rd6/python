@@ -1,0 +1,98 @@
+正则难题；
+特殊字符：
+.^$?+*{}|():     这些字符想用字面值，必须使用转义字符进行转义\
+｜是管道符号，表示或的意思，如果A|B同时出现，只匹配第一次出现的字符
+例如：\.  \? \* \( \)　等等
+\d \s \w    第一个表示0-9的任何数字；　第二个表示空格，制表符，换行符；　第三个表示数字，字母和下划线
+\D \S \W     上面每一个的“非”即是。
+
+正则表达式匹配：
+１．导入模块re
+２．re.compile()创建Regex对象
+３．向Regex对象的search()方法传入想查找的字符串，返回一个Match对象
+４．调用Match对象的group()方法，返回实际匹配文本的字符串
+５．通过传入 re.DOTALL 作为 re.compile()的第二个参数， 可以让句点字符匹配所有字符， 包括换行字符。
+
+更多模式（正则表达式符号复习）：
+１．括号分组
+２．管道匹配多个分组
+３．问号匹配０次或１次
+４．星号匹配０次或多次
+５．加号匹配１次或多次
+６．花括号匹配特定次数：｛m,｝{,n}  {m,n}
+贪心匹配和非贪心匹配：
+python默认是贪心匹配，如果要非贪心匹配，则：
+r'{m:n}?' （原始字符串）
+^spam　字符串以spam开始
+spam$　字符串以spam结束
+.　匹配除换行符之外的所有字符
+[abc]　匹配方框内的任意字符
+[^abc]　匹配除方框内的任意字符
+
+sub()方法：
+name = re.compile(r'Agent \w+')
+name.sub("xxx", 'Agent Alice and Agent Bob')
+结果是'xxx and xxx'
+
+实例项目促进记忆：
+电话号码和E-mail地址提取程序
+源代码：
+#! python3
+# phoneAndEmail.py - Finds phone numbers and email addresses on the clipboard.
+
+import pyperclip, re
+
+phoneRegex = re.compile(r'''(
+    (\d{3}|\(\d{3}\))?              # area code
+    (\s|-|\.)?                      # separator
+    (\d{3})                         # first 3 digits
+    (\s|-|\.)                       # separator
+    (\d{4})                         # last 4 digits
+    (\s*(ext|x|ext.)\s*(\d{2,5}))?  # extension
+    )''', re.VERBOSE)               # has groups
+
+# Create email regex.
+emailRegex = re.compile(r'''(
+    [a-zA-Z0-9._%+-]+      # username
+    @                      # @ symbol
+    [a-zA-Z0-9.-]+         # domain name
+    (\.[a-zA-Z]{2,4}){1,2} # dot-something
+    )''', re.VERBOSE)      # has groups
+
+# Find matches in clipboard text.
+#text = pyperclip.copy('800-400-2414')
+text = str(pyperclip.paste())
+matches = []
+for groups in phoneRegex.findall(text):
+    print(groups)
+    print(groups[1], groups[3], groups[5])
+    phoneNum = '-'.join([groups[1], groups[3], groups[5]])
+    if groups[8] != '':
+        phoneNum += ' x' + groups[8]     #可能有分机号
+    matches.append(phoneNum)
+for groups in emailRegex.findall(text):
+    print(groups)
+    matches.append(groups[0])
+
+# Copy results to the clipboard.
+if len(matches) > 0:
+    pyperclip.copy('\n'.join(matches))
+    print('Copied to clipboard:')
+    print('\n'.join(matches))
+else:
+    print('No phone numbers or email addresses found.')
+
+这过程注意：因为pyperclip是第三方库，除了要自己导入，再导入之前，必须先下载，但不仅仅是下载pyperclip
+否则运行还是会报错，类似：
+pyperclip can not find any copy/paste ……
+原因就是Linux系统使用此模块需要如下工具：
+xsel xclip pygtk pyqt5
+所以解决方法就是下载这些相应工具：
+sudo pip3 install xsel xclip
+sudo pip3 install pygtk
+sudo pip3 install pyqt5
+
+这些步骤完成后，运行即ok。
+当然，copy的东西可以自己取随意copy，但为了验证这个程序的正确性，就按照书里去操作即可，最终也理清思路，完成本实验
+本书是《python编程快速上手　让繁琐工作自动化》
+这个实例自己推一遍，会对正则表达式和模式匹配有更好的理解。
